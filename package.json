@@ -1,0 +1,41 @@
+{
+  "name": "neytrack",
+  "version": "1.0.0",
+  "description": "Track of games played by Neymar this year in Brazilian League",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "deploy": "sls deploy",
+    "remove": "sls remove",
+    "invoke": "sls invoke -f getGames",
+    "offline": "sls offline",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarceloHEcker/neytrack.git"
+  },
+  "keywords": [
+    "serverless",
+    "aws",
+    "lambda",
+    "typescript",
+    "neymar",
+    "games"
+  ],
+  "author": "Marcelo Ecker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarceloHEcker/neytrack/issues"
+  },
+  "homepage": "https://github.com/MarceloHEcker/neytrack#readme",
+  "dependencies": {
+    "serverless": "^4.11.1"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.148",
+    "@types/node": "^22.14.0",
+    "jest": "^29.7.0",
+    "typescript": "^5.8.2"
+  }
+}

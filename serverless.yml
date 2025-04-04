@@ -1,0 +1,32 @@
+service: neytrack
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  environment:
+    DYNAMODB_TABLE: ${self:service}-games-${opt:stage, 'dev'}
+
+functions:
+  neytrackList:
+    handler: src/controllers/list/index.handler
+    event:
+      - http:
+        path: games/titular
+        method: get
+
+resources:
+  Resources:
+    GamesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:service}-games-${opt:stage, 'dev'}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
