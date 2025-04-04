@@ -1,6 +1,6 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} **/
 export default {
-  setupFiles: ['<rootDir>/tests/set-env-vars.js'],
+  setupFiles: ['<rootDir>/set-env-vars.js'],
   testMatch: [
     '**/__tests__/**/*.+(ts|tsx|js)',
     '**/?(*.)+(spec|test).+(ts|tsx|js)',
@@ -16,7 +16,6 @@ export default {
       },
     ],
   },
-  // TODO: Aumentar coverage
   coverageThreshold: {
     global: {
       branches: 75,
