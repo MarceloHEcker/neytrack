@@ -1,9 +1,10 @@
-import { UpdateItemCommand } from "@aws-sdk/client-dynamodb";
+import { AttributeValue, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import { client } from "../dynamo/base";
+import { Game } from "~/models/game";
 
 interface UpdateGameParams {
   gameId: string;
-  updateData: { [key: string]: any };
+  updateData: { [key: string]: Game };
 }
 
 const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
@@ -11,7 +12,7 @@ const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
 export const updateGame = async ({ gameId, updateData }: UpdateGameParams): Promise<void> => {
 
   const updateExpression = Object.keys(updateData)
-    .map((key, index) => `#key${index} = :value${index}`)
+    .map((key: string, index) => `#key${key} = :value${index}`)
     .join(", ");
 
   const expressionAttributeNames = Object.keys(updateData).reduce((acc, key, index) => {
@@ -20,9 +21,9 @@ export const updateGame = async ({ gameId, updateData }: UpdateGameParams): Prom
   }, {} as { [key: string]: string });
 
   const expressionAttributeValues = Object.keys(updateData).reduce((acc, key, index) => {
-    acc[`:value${index}`] = updateData[key];
+    acc[`:value${index}`] = { S: JSON.stringify(updateData[key]) }; // Convert Game object to string
     return acc;
-  }, {} as { [key: string]: any });
+  }, {} as { [key: string]: AttributeValue });
 
   const params = {
     TableName: DYNAMODB_TABLE,

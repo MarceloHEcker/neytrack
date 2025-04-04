@@ -5,9 +5,9 @@ const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable';
 
 export async function deleteGame(gameId: string): Promise<void> {
   const params = {
-    TableName: DYNAMODB_TABLE, // Replace with your DynamoDB table name
+    TableName: DYNAMODB_TABLE,
     Key: {
-      id: { S: gameId }, // Replace "gameId" with your primary key attribute name
+      id: { S: gameId },
     },
   }
 
