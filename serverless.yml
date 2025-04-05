@@ -53,6 +53,17 @@ functions:
           path: games
           method: post
 
+  neytrack-update-game:
+    handler: src/controllers/update/index.handler
+    events:
+      - http:
+          path: games/{id}
+          method: put
+          request:
+            parameters:
+              paths:
+                id: true
+
 resources:
   Resources:
     GamesTable:
@@ -68,3 +79,8 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+    ApiGatewayRestApi:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: ${self:service}-api
+        Description: API for ${self:service}

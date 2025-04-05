@@ -1,38 +1,37 @@
-import { AttributeValue, UpdateItemCommand } from '@aws-sdk/client-dynamodb'
+import { UpdateItemCommand } from '@aws-sdk/client-dynamodb'
 import { client } from '../dynamo/base'
-import { Game } from '~/models/game'
+
+interface UpdateGameData {
+  started: boolean
+  homeTeam: string
+  awayTeam: string
+}
 
 interface UpdateGameParams {
   gameId: string;
-  updateData: { [key: string]: Game };
+  updateData: UpdateGameData;
 }
 
 const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
 
-export const updateGame = async ({ gameId, updateData }: UpdateGameParams): Promise<void> => {
-
-  const updateExpression = Object.keys(updateData)
-    .map((key: string, index) => `#key${key} = :value${index}`)
-    .join(', ')
-
-  const expressionAttributeNames = Object.keys(updateData).reduce((acc, key, index) => {
-    acc[`#key${index}`] = key
-    return acc
-  }, {} as { [key: string]: string })
-
-  const expressionAttributeValues = Object.keys(updateData).reduce((acc, key, index) => {
-    acc[`:value${index}`] = { S: JSON.stringify(updateData[key]) } // Convert Game object to string
-    return acc
-  }, {} as { [key: string]: AttributeValue })
+const updateGame = async ({ gameId, updateData }: UpdateGameParams): Promise<void> => {
 
   const params = {
     TableName: DYNAMODB_TABLE,
     Key: {
-      gameId: { S: gameId },
+      id: { S: gameId },
     },
-    UpdateExpression: `SET ${updateExpression}`,
-    ExpressionAttributeNames: expressionAttributeNames,
-    ExpressionAttributeValues: expressionAttributeValues,
+    UpdateExpression: 'SET #started = :started, #homeTeam = :homeTeam, #awayTeam = :awayTeam',
+    ExpressionAttributeNames: {
+      '#started': 'started',
+      '#homeTeam': 'homeTeam',
+      '#awayTeam': 'awayTeam',
+    },
+    ExpressionAttributeValues: {
+      ':started': { BOOL: updateData.started },
+      ':homeTeam': { S: updateData.homeTeam },
+      ':awayTeam': { S: updateData.awayTeam },
+    },
   }
 
   try {
@@ -44,3 +43,5 @@ export const updateGame = async ({ gameId, updateData }: UpdateGameParams): Prom
     throw error
   }
 }
+
+export default updateGame
