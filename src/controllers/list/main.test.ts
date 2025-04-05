@@ -9,6 +9,8 @@ jest.mock('~/repositories/games/list')
 describe('Controllers - List - Main', () => {
   it('should return a list of games', async () => {
 
+    const listGamesMock = jest.mocked(listGames)
+
     const game1 = mock<Game>({
       id: 'game1',
     })
@@ -20,13 +22,15 @@ describe('Controllers - List - Main', () => {
     const mockGames: Game[] = [
       game1,
       game2,
-    ];
+    ]
 
-    (listGames as jest.Mock).mockResolvedValue(mockGames)
+    listGamesMock.mockResolvedValue(mockGames)
 
     const result = await listGamesMain()
+    expect(result.statusCode).toEqual(200)
+    expect(result.body).toEqual(JSON.stringify(mockGames))
 
     expect(listGames).toHaveBeenCalledTimes(1)
-    expect(result).toEqual(mockGames)
+    expect(listGames).toHaveBeenCalledWith()
   })
 })
