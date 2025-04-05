@@ -5,10 +5,22 @@ provider:
   runtime: nodejs20.x
   region: us-east-1
   environment:
-    DYNAMODB_TABLE: ${self:service}-games-${opt:stage, 'dev'}
+    AWS_REGION: us-east-1
+    WORKSPACE: sdx
+    DYNAMODB_TABLE: ${self:service}-games-${opt:stage, 'sdx'}
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+custom:
+  esbuild:
+    sourcemap: true
+    watch:
+      pattern: ["src/**/*"]
 
 functions:
-  neytrackList:
+  neytrack-list:
     handler: src/controllers/list/index.handler
     event:
       - http:
@@ -20,7 +32,7 @@ resources:
     GamesTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:service}-games-${opt:stage, 'dev'}
+        TableName: ${self:service}-games-${opt:stage, 'sdx'}
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S

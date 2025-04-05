@@ -3,13 +3,9 @@
   "version": "1.0.0",
   "description": "Track of games played by Neymar this year in Brazilian League",
   "scripts": {
-    "build": "tsc",
-    "deploy": "sls deploy",
-    "remove": "sls remove",
-    "invoke": "sls invoke -f getGames",
-    "offline": "sls offline",
-    "test": "LOGGER_LEVEL=silent jest",
-    "lint": "tsc --noEmit && eslint --ext .ts src"
+    "lint": "tsc --noEmit && eslint --ext .ts src",
+    "start": "sls offline",
+    "test": "LOGGER_LEVEL=silent jest"
   },
   "repository": {
     "type": "git",
@@ -57,6 +53,8 @@
     "globals": "^16.0.0",
     "jest": "^29.7.0",
     "jest-mock-extended": "^4.0.0-beta1",
+    "serverless-esbuild": "^1.55.0",
+    "serverless-offline": "^14.4.0",
     "strip-ansi": "^7.1.0",
     "ts-jest": "^29.3.1",
     "typescript": "^5.8.2",
