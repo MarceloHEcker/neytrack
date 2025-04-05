@@ -7,8 +7,8 @@ import createGame from '~/repositories/games/create'
 // Definindo o esquema de validação com Zod
 const schema = z.object({
   id: z.string().nonempty('The "id" field is required and must be a string'),
-  homeTeam: z.string().optional(),
-  awayTeam: z.string().optional(),
+  homeTeam: z.string(),
+  awayTeam: z.string(),
   started: z.boolean().refine((val) => typeof val === 'boolean', {
     message: 'The "started" field is required and must be a boolean',
   }),
