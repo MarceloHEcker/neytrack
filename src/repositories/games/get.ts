@@ -1,3 +1,4 @@
+import logger from '~/utils/logger'
 import { Game } from '../../models/game'
 import dynamoDb from '../dynamo/base'
 import { GetCommand } from '@aws-sdk/lib-dynamodb'
@@ -17,7 +18,11 @@ const getGame = async (gameId: string): Promise<Game> => {
 
     return response.Item as Game
   } catch (error) {
-    console.error('Error fetching game:', error)
+    logger.error({
+      message: 'Error fetching game',
+      error,
+    })
+
     throw error
   }
 }

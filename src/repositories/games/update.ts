@@ -1,5 +1,6 @@
 import { UpdateItemCommand } from '@aws-sdk/client-dynamodb'
 import { client } from '../dynamo/base'
+import logger from '~/utils/logger'
 
 interface UpdateGameData {
   started: boolean
@@ -37,9 +38,15 @@ const updateGame = async ({ gameId, updateData }: UpdateGameParams): Promise<voi
   try {
     const command = new UpdateItemCommand(params)
     await client.send(command)
-    console.log(`Game with ID ${gameId} updated successfully.`)
+    logger.debug({
+      message: `Game with ID ${gameId} updated successfully.`
+    })
   } catch (error) {
-    console.error('Error updating game:', error)
+    logger.error({
+      message: 'Error updating game',
+      error,
+    })
+
     throw error
   }
 }

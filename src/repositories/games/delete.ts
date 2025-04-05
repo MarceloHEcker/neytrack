@@ -1,5 +1,6 @@
 import { DeleteItemCommand } from '@aws-sdk/client-dynamodb'
 import { client } from '../dynamo/base'
+import logger from '~/utils/logger'
 
 const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
 
@@ -15,7 +16,11 @@ const deleteGame = async (gameId: string): Promise<void> => {
     const command = new DeleteItemCommand(params)
     await client.send(command)
   } catch (error) {
-    console.error(`Failed to delete game with ID ${gameId}:`, error)
+    logger.error({
+      message: `Failed to delete game with ID ${gameId}:`,
+      error,
+    })
+
     throw error
   }
 }

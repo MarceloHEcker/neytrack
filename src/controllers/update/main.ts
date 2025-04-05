@@ -2,6 +2,7 @@ import { APIGatewayProxyEvent } from 'aws-lambda'
 import { z } from 'zod'
 
 import updateGame from '~/repositories/games/update'
+import logger from '~/utils/logger'
 
 const schema = z.object({
   homeTeam: z.string(),
@@ -23,6 +24,12 @@ const updateGameHandler = async (event: APIGatewayProxyEvent) => {
   }
 
   const id = pathParameters.id
+
+  logger.debug({
+    message: 'Request to update game',
+    id,
+  })
+
 
   if (!event.body) {
     return {
@@ -50,6 +57,11 @@ const updateGameHandler = async (event: APIGatewayProxyEvent) => {
       awayTeam,
       started
     }
+  })
+
+  logger.info({
+    message: 'Response to update game',
+    id,
   })
 
   const response = { result: 'success', message: 'Game updated correctly' }

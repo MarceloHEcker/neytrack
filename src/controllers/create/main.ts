@@ -3,6 +3,7 @@ import { z } from 'zod'
 
 import { Game } from '~/models/game'
 import createGame from '~/repositories/games/create'
+import logger from '~/utils/logger'
 
 // Definindo o esquema de validação com Zod
 const schema = z.object({
@@ -15,6 +16,10 @@ const schema = z.object({
 })
 
 const createGameMain = async (event: APIGatewayProxyEvent) => {
+
+  logger.debug({
+    message: 'Request to create game',
+  })
 
   if (!event.body) {
     return {
@@ -43,6 +48,11 @@ const createGameMain = async (event: APIGatewayProxyEvent) => {
   }
 
   await createGame(game)
+
+  logger.info({
+    message: 'Response to create game',
+    id: game.id,
+  })
 
   const response = { result: 'success', message: 'Game created successfully' }
   return { statusCode: 201, body: JSON.stringify(response) }

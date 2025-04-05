@@ -1,6 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import deleteGame from '~/repositories/games/delete'
 import getGame from '~/repositories/games/get'
+import logger from '~/utils/logger'
 
 const deleteGameHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const { pathParameters } = event
@@ -14,6 +15,11 @@ const deleteGameHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewa
 
   const id = pathParameters.id
 
+  logger.debug({
+    message: 'Request to delete game',
+    id,
+  })
+
   const game = await getGame(id)
 
   if (!game) {
@@ -24,6 +30,12 @@ const deleteGameHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewa
   }
 
   await deleteGame(id)
+
+
+  logger.info({
+    message: 'Response to delete game',
+    id,
+  })
 
   return {
     statusCode: 204,

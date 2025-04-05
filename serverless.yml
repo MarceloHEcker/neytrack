@@ -26,6 +26,19 @@ custom:
     httpPort: 3000
     noPrependStageInUrl: true
 
+build:
+  esbuild:
+    minify: true
+    platform: node
+    target: esnext
+    sourcemap: true
+    sourcesContent: false
+    format: esm
+    outExtension:
+      .js: .mjs
+    banner:
+      js: import { createRequire } from 'module';const require = createRequire(import.meta.url);
+
 functions:
   neytrack-list-games:
     name: neytrack-list-games-${opt:stage, 'sdx'}

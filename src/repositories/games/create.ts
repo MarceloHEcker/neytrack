@@ -1,6 +1,7 @@
 import { PutItemCommand } from '@aws-sdk/client-dynamodb'
 import { client } from '../dynamo/base'
 import { Game } from '~/models/game'
+import logger from '~/utils/logger'
 
 const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
 
@@ -18,9 +19,15 @@ const createGame = async (item: Game): Promise<void> => {
   try {
     const command = new PutItemCommand(params)
     await client.send(command)
-    console.log('Item successfully inserted into DynamoDB')
+    logger.debug({
+      message: 'Item successfully inserted into DynamoDB'
+    })
   } catch (error) {
-    console.error('Error inserting item into DynamoDB:', error)
+    logger.error({
+      message: 'Error inserting item into DynamoDB',
+      error,
+    })
+
     throw error
   }
 }

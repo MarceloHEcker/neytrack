@@ -1,8 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import getGame from '~/repositories/games/get'
+import logger from '~/utils/logger'
 
 const getGameHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  console.log('event', event)
 
   const { pathParameters } = event
 
@@ -15,6 +15,11 @@ const getGameHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
   const id = pathParameters.id
 
+  logger.debug({
+    message: 'Request to get game',
+    id,
+  })
+
   const game = await getGame(id)
 
   if (!game) {
@@ -23,6 +28,10 @@ const getGameHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
       body: JSON.stringify({ message: 'Game not found' }),
     }
   }
+
+  logger.info({
+    message: 'Response to get game',
+  })
 
   return {
     statusCode: 200,
