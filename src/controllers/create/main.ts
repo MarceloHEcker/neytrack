@@ -14,7 +14,7 @@ const schema = z.object({
   }),
 })
 
-const createGameHandler = async (event: APIGatewayProxyEvent) => {
+const createGameMain = async (event: APIGatewayProxyEvent) => {
 
   if (!event.body) {
     return {
@@ -23,8 +23,15 @@ const createGameHandler = async (event: APIGatewayProxyEvent) => {
     }
   }
 
-  const parsedBody = schema.parse(JSON.parse(event.body))
-
+  let parsedBody
+  try {
+    parsedBody = schema.parse(JSON.parse(event.body))
+  } catch {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: 'Invalid request body' }),
+    }
+  }
 
   const { id, started, homeTeam, awayTeam } = parsedBody
 
@@ -35,12 +42,10 @@ const createGameHandler = async (event: APIGatewayProxyEvent) => {
     started
   }
 
-  console.log('game', game)
-
   await createGame(game)
 
-  const response = { result: 'success', message: 'Game saved correctly' }
+  const response = { result: 'success', message: 'Game created successfully' }
   return { statusCode: 201, body: JSON.stringify(response) }
 }
 
-export default createGameHandler
+export default createGameMain
