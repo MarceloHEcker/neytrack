@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "allowJs": true,
     "declaration": true,
     "baseUrl": "./",
     "esModuleInterop": true,
@@ -35,22 +34,21 @@
       ],
       "~/utils/*": [
         "./src/utils/*"
-      ],
-      "~/factories/*": [
-        "./src/factories/*"
-      ],
-      "~/adapters/*": [
-        "./src/adapters/*"
-      ],
-      "~/database/*": [
-        "./src/database/*"
-      ],
-      "~/admin/*": [
-        "./src/admin-api/*"
-      ],
-    },
+      ]
+    }
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "node_modules/**/*",
+    ".serverless/**/*",
+    ".webpack/**/*",
+    "_warmup/**/*",
+    ".vscode/**/*",
+    ".idea/**/*",
+    "dist/**/*",
+    "tests/**/*"
   ]
 }

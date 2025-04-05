@@ -1,14 +1,14 @@
-import { ScanCommand } from "@aws-sdk/lib-dynamodb"
+import { ScanCommand } from '@aws-sdk/lib-dynamodb'
 
-import { Game } from "../../models/game"
-import dynamoDb from "../dynamo/base"
+import { Game } from '../../models/game'
+import dynamoDb from '../dynamo/base'
 
 const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
 
 const listGames = async (): Promise<Game[]> => {
   const params = {
     TableName: DYNAMODB_TABLE,
-  };
+  }
 
   try {
     const command = new ScanCommand(params)

@@ -1,10 +1,10 @@
-import { Game } from "../../models/game";
-import dynamoDb from "../dynamo/base";
-import { GetCommand } from "@aws-sdk/lib-dynamodb";
+import { Game } from '../../models/game'
+import dynamoDb from '../dynamo/base'
+import { GetCommand } from '@aws-sdk/lib-dynamodb'
 
-const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable';
+const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
 
-export async function getGame(gameId: string): Promise<Game> {
+const getGame = async (gameId: string): Promise<Game> => {
   const params = {
     TableName: DYNAMODB_TABLE,
     Key: {
@@ -21,7 +21,9 @@ export async function getGame(gameId: string): Promise<Game> {
 
     return response.Item as Game
   } catch (error) {
-    console.error("Error fetching game:", error)
+    console.error('Error fetching game:', error)
     throw error
   }
 }
+
+export default getGame

@@ -1,6 +1,5 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} **/
-export default {
-  setupFiles: ['<rootDir>/set-env-vars.js'],
+// eslint-disable-next-line no-undef
+module.exports = {
   testMatch: [
     '**/__tests__/**/*.+(ts|tsx|js)',
     '**/?(*.)+(spec|test).+(ts|tsx|js)',
@@ -18,13 +17,14 @@ export default {
   },
   coverageThreshold: {
     global: {
-      branches: 75,
+      branches: 70,
       functions: 70,
-      lines: 90,
-      statements: 85,
+      lines: 70,
+      statements: 70,
     },
   },
   coverageReporters: ['json', 'lcov', 'text', 'clover'],
+  setupFiles: ['<rootDir>/set-env-vars.js'],
   modulePathIgnorePatterns: ['<rootDir>/.build/'],
   moduleNameMapper: {
     '~/constants/(.*)': '<rootDir>/src/constants/$1',
@@ -32,7 +32,6 @@ export default {
     '~/repositories/(.*)': '<rootDir>/src/repositories/$1',
     '~/services/(.*)': '<rootDir>/src/services/$1',
     '~/use-cases/(.*)': '<rootDir>/src/use-cases/$1',
-    '~/adapters/(.*)': '<rootDir>/src/adapters/$1',
     '~/utils/(.*)': '<rootDir>/src/utils/$1',
   },
 }

@@ -1,7 +1,7 @@
-import { DeleteItemCommand } from "@aws-sdk/client-dynamodb";
-import { client } from "../dynamo/base";
+import { DeleteItemCommand } from '@aws-sdk/client-dynamodb'
+import { client } from '../dynamo/base'
 
-const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable';
+const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
 
 export async function deleteGame(gameId: string): Promise<void> {
   const params = {

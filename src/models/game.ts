@@ -1,6 +1,6 @@
 export interface Game {
   id: string
-  neymarTitular: boolean
+  started: boolean
   homeTeam: string
   awayTeam: string
 }

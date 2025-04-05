@@ -1,0 +1,31 @@
+{
+  "[typescript]": {
+    "editor.rulers": [
+      {
+        "column": 80,
+        "color": "#424142"
+      }
+    ],
+    "editor.defaultFormatter": null,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "[javascript]": {
+    "editor.rulers": [
+      {
+        "column": 80,
+        "color": "#424142"
+      }
+    ],
+    "editor.defaultFormatter": null,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "[javascript][typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  }
+}
