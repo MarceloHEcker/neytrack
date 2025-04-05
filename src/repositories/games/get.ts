@@ -15,10 +15,6 @@ const getGame = async (gameId: string): Promise<Game> => {
   try {
     const response = await dynamoDb.send(new GetCommand(params))
 
-    if (!response.Item) {
-      throw new Error(`Game with ID ${gameId} not found`)
-    }
-
     return response.Item as Game
   } catch (error) {
     console.error('Error fetching game:', error)

@@ -46,6 +46,13 @@ functions:
               paths:
                 id: true
 
+  neytrack-create-game:
+    handler: src/controllers/create/index.handler
+    events:
+      - http:
+          path: games
+          method: post
+
 resources:
   Resources:
     GamesTable:

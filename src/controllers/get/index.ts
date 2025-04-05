@@ -1,6 +1,16 @@
-import middy from '@middy/core'
-import httpErrorHandler from '@middy/http-error-handler'
+import { APIGatewayProxyEvent } from 'aws-lambda'
 import getGameHandler from './main'
 
-export const handler = middy(getGameHandler)
-  .use(httpErrorHandler())
+export const handler = async (event: APIGatewayProxyEvent) => {
+  try {
+    return await getGameHandler(event)
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        message: 'Internal Server Error',
+        error: error instanceof Error ? error.message : 'Unknown error',
+      }),
+    }
+  }
+}

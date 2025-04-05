@@ -1,18 +1,15 @@
-import middy from '@middy/core'
-import httpErrorHandler from '@middy/http-error-handler'
+import listHandler from './main'
 
-import listMain from './main'
-
-export interface ResponseType {
-  statusCode: number
-  body: string
+export const handler = async () => {
+  try {
+    return await listHandler()
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        message: 'Internal Server Error',
+        error: error instanceof Error ? error.message : 'Unknown error',
+      }),
+    }
+  }
 }
-
-const baseHandler = async (): Promise<ResponseType> => {
-  const list = await listMain()
-
-  return { statusCode: 200, body: JSON.stringify(list) }
-}
-
-export const handler = middy(baseHandler)
-  .use(httpErrorHandler())

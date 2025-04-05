@@ -1,9 +1,14 @@
-import { Game } from '~/models/game'
+import { APIGatewayProxyResult } from 'aws-lambda'
+
 import listGames from '~/repositories/games/list'
 
-const listGamesMain = async (): Promise<Game[]> => {
+const listGamesMain = async (): Promise<APIGatewayProxyResult> => {
   const games = await listGames()
-  return games
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify(games),
+  }
 }
 
 export default listGamesMain
