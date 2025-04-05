@@ -1,9 +1,9 @@
 import { APIGatewayProxyEvent } from 'aws-lambda'
-import getGameHandler from './main'
+import getGameMain from './main'
 
 export const handler = async (event: APIGatewayProxyEvent) => {
   try {
-    return await getGameHandler(event)
+    return await getGameMain(event)
   } catch (error) {
     return {
       statusCode: 500,
