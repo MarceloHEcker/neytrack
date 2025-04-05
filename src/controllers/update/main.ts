@@ -3,7 +3,6 @@ import { z } from 'zod'
 
 import updateGame from '~/repositories/games/update'
 
-// Definindo o esquema de validação com Zod
 const schema = z.object({
   homeTeam: z.string(),
   awayTeam: z.string(),
@@ -32,8 +31,15 @@ const updateGameHandler = async (event: APIGatewayProxyEvent) => {
     }
   }
 
-  const parsedBody = schema.parse(JSON.parse(event.body))
-
+  let parsedBody
+  try {
+    parsedBody = schema.parse(JSON.parse(event.body))
+  } catch {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: 'Invalid request body' }),
+    }
+  }
 
   const { started, homeTeam, awayTeam } = parsedBody
 

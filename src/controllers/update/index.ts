@@ -3,16 +3,15 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    const result = await updateGameHandler(event)
-    return {
-      statusCode: 200,
-      body: JSON.stringify(result),
-    }
+    return await updateGameHandler(event)
   } catch (error) {
     console.error('Error:', error)
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: error instanceof Error ? error.message : 'An unknown error occurred' }),
+      body: JSON.stringify({
+        message: 'Internal Server Error',
+        error: error instanceof Error ? error.message : 'Unknown error',
+      }),
     }
   }
 }
