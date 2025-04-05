@@ -10,6 +10,14 @@ jest.mock('../dynamo/base', () => ({
 describe('Repositories - Games - Delete', () => {
   const gameId = 'test-game-id'
 
+  beforeAll(() => {
+    jest.spyOn(console, 'error').mockImplementation(() => { })
+  })
+
+  afterAll(() => {
+    jest.restoreAllMocks()
+  })
+
   afterEach(() => {
     jest.clearAllMocks()
   })

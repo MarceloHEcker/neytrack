@@ -14,7 +14,6 @@ export async function deleteGame(gameId: string): Promise<void> {
   try {
     const command = new DeleteItemCommand(params)
     await client.send(command)
-    console.log(`Game with ID ${gameId} deleted successfully.`)
   } catch (error) {
     console.error(`Failed to delete game with ID ${gameId}:`, error)
     throw error
