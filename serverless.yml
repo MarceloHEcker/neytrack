@@ -2,30 +2,48 @@ service: neytrack
 
 provider:
   name: aws
+  stage: sdx
   runtime: nodejs20.x
   region: us-east-1
   environment:
-    AWS_REGION: us-east-1
-    WORKSPACE: sdx
     DYNAMODB_TABLE: ${self:service}-games-${opt:stage, 'sdx'}
 
 plugins:
-  - serverless-esbuild
   - serverless-offline
 
-custom:
-  esbuild:
-    sourcemap: true
-    watch:
-      pattern: ["src/**/*"]
+serverless-offline:
+  httpPort: 3000
+  noPrependStageInUrl: true
 
 functions:
-  neytrack-list:
+  neytrack-list-games:
     handler: src/controllers/list/index.handler
-    event:
+    events:
       - http:
-        path: games/titular
-        method: get
+          path: games
+          method: get
+
+  neytrack-get-game:
+    handler: src/controllers/get/index.handler
+    events:
+      - http:
+          path: games/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true
+
+  neytrack-delete-game:
+    handler: src/controllers/delete/index.handler
+    events:
+      - http:
+          path: games/{id}
+          method: delete
+          request:
+            parameters:
+              paths:
+                id: true
 
 resources:
   Resources:
