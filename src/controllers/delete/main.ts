@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
-import { deleteGame } from '~/repositories/games/delete'
+import deleteGame from '~/repositories/games/delete'
 import getGame from '~/repositories/games/get'
 
 const deleteGameHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -19,7 +19,7 @@ const deleteGameHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewa
   if (!game) {
     return {
       statusCode: 404,
-      body: JSON.stringify('Game not found'),
+      body: JSON.stringify({ message: 'Game not found' }),
     }
   }
 
@@ -27,7 +27,7 @@ const deleteGameHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewa
 
   return {
     statusCode: 204,
-    body: JSON.stringify('')
+    body: '',
   }
 }
 

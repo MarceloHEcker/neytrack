@@ -1,4 +1,4 @@
-import { deleteGame } from './delete'
+import deleteGame from './delete'
 import { client } from '../dynamo/base'
 
 jest.mock('../dynamo/base', () => ({

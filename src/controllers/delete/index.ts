@@ -1,9 +1,9 @@
 import { APIGatewayProxyEvent } from 'aws-lambda'
-import deleteGameHandler from './main'
+import deleteGameMain from './main'
 
 export const handler = async (event: APIGatewayProxyEvent) => {
   try {
-    return await deleteGameHandler(event)
+    return await deleteGameMain(event)
   } catch (error) {
     return {
       statusCode: 500,

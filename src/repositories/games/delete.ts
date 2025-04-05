@@ -3,7 +3,7 @@ import { client } from '../dynamo/base'
 
 const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
 
-export async function deleteGame(gameId: string): Promise<void> {
+const deleteGame = async (gameId: string): Promise<void> => {
   const params = {
     TableName: DYNAMODB_TABLE,
     Key: {
@@ -19,3 +19,5 @@ export async function deleteGame(gameId: string): Promise<void> {
     throw error
   }
 }
+
+export default deleteGame
