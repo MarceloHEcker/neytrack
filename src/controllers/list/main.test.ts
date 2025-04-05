@@ -7,9 +7,14 @@ import { mock } from 'jest-mock-extended'
 jest.mock('~/repositories/games/list')
 
 describe('Controllers - List - Main', () => {
-  it('should return a list of games', async () => {
 
-    const listGamesMock = jest.mocked(listGames)
+  const listGamesMock = jest.mocked(listGames)
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
+  it('should return a list of games', async () => {
 
     const game1 = mock<Game>({
       id: 'game1',
