@@ -7,6 +7,16 @@ provider:
   region: us-east-1
   environment:
     DYNAMODB_TABLE: ${self:service}-games-${opt:stage, 'sdx'}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:DeleteItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+      Resource:
+        - arn:aws:dynamodb:${self:provider.region}:*:table/${self:service}-games-${opt:stage, 'sdx'}
 
 plugins:
   - serverless-offline
@@ -18,6 +28,8 @@ custom:
 
 functions:
   neytrack-list-games:
+    name: neytrack-list-games-${opt:stage, 'sdx'}
+    description: List all games that are in the database
     handler: src/controllers/list/index.handler
     events:
       - http:
@@ -25,6 +37,8 @@ functions:
           method: get
 
   neytrack-get-game:
+    name: neytrack-get-game-${opt:stage, 'sdx'}
+    description: Get a game by its ID
     handler: src/controllers/get/index.handler
     events:
       - http:
@@ -36,6 +50,8 @@ functions:
                 id: true
 
   neytrack-delete-game:
+    name: neytrack-delete-game-${opt:stage, 'sdx'}
+    description: Delete a game by its ID
     handler: src/controllers/delete/index.handler
     events:
       - http:
@@ -47,6 +63,8 @@ functions:
                 id: true
 
   neytrack-create-game:
+    name: neytrack-create-game-${opt:stage, 'sdx'}
+    description: Create a new game
     handler: src/controllers/create/index.handler
     events:
       - http:
@@ -54,6 +72,8 @@ functions:
           method: post
 
   neytrack-update-game:
+    name: neytrack-update-game-${opt:stage, 'sdx'}
+    description: Update a game by its ID
     handler: src/controllers/update/index.handler
     events:
       - http:
