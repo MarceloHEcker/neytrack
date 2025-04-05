@@ -5,7 +5,7 @@ import logger from '~/utils/logger'
 
 const listGamesMain = async (): Promise<APIGatewayProxyResult> => {
 
-  logger.info({
+  logger.debug({
     message: 'Request to list games',
   })
 
