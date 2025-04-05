@@ -1,4 +1,4 @@
-name: Deploy sdx branch
+name: Deploy prd branch
 
 on:
   push:
