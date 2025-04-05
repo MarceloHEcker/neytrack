@@ -5,12 +5,13 @@
   "scripts": {
     "lint": "tsc --noEmit && eslint --ext .ts src",
     "start": "sls offline",
-    "test": "LOGGER_LEVEL=silent jest"
+    "test": "NODE_OPTIONS=--loader=ts-node/esm LOGGER_LEVEL=silent NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MarceloHEcker/neytrack.git"
   },
+  "type": "module",
   "keywords": [
     "serverless",
     "aws",
@@ -36,7 +37,6 @@
     "serverless": "^4.11.1"
   },
   "devDependencies": {
-    "@babel/preset-typescript": "^7.27.0",
     "@eslint/js": "^9.24.0",
     "@types/aws-lambda": "^8.10.148",
     "@types/jest": "^29.5.14",
@@ -57,7 +57,8 @@
     "serverless-offline": "^14.4.0",
     "strip-ansi": "^7.1.0",
     "ts-jest": "^29.3.1",
-    "typescript": "^5.8.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
     "typescript-eslint": "^8.29.0"
   }
 }

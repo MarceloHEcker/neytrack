@@ -1,10 +1,19 @@
 {
   "compilerOptions": {
+    "target": "ES2020",
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "types": [
+      "jest"
+    ],
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "baseUrl": "./",
-    "esModuleInterop": true,
-    "module": "commonjs",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
@@ -12,10 +21,7 @@
     "outDir": ".build",
     "rootDir": "./",
     "resolveJsonModule": true,
-    "skipLibCheck": true,
     "sourceMap": true,
-    "strict": true,
-    "target": "es2020",
     "paths": {
       "~/constants/*": [
         "./src/constants/*"
@@ -38,17 +44,6 @@
     }
   },
   "include": [
-    "src"
+    "**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "node_modules/**/*",
-    ".serverless/**/*",
-    ".webpack/**/*",
-    "_warmup/**/*",
-    ".vscode/**/*",
-    ".idea/**/*",
-    "dist/**/*",
-    "tests/**/*"
-  ]
 }
