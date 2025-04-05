@@ -14,7 +14,7 @@ describe('Controllers - Get - Index', () => {
     jest.clearAllMocks()
   })
 
-  it('should return the result of listHandler when it resolves successfully', async () => {
+  it('should return the result of getGameMain when it resolves successfully', async () => {
     const mockResponse = {
       statusCode: 200,
       body: JSON.stringify({ data: 'test data' }),
@@ -28,7 +28,7 @@ describe('Controllers - Get - Index', () => {
     expect(getGameMainMock).toHaveBeenCalledWith(event)
   })
 
-  it('should return a 500 error response when listHandler throws an error', async () => {
+  it('should return a 500 error response when getGameMain throws an error', async () => {
     const mockError = new Error('Test error')
     getGameMainMock.mockRejectedValue(mockError)
 
@@ -45,7 +45,7 @@ describe('Controllers - Get - Index', () => {
     expect(getGameMainMock).toHaveBeenCalledWith(event)
   })
 
-  it('should return a 500 error response with "Unknown error" when listHandler throws a non-Error object', async () => {
+  it('should return a 500 error response with "Unknown error" when getGameMain throws a non-Error object', async () => {
     getGameMainMock.mockRejectedValue('Non-error object')
 
     const result = await handler(event)
