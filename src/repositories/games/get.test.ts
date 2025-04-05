@@ -16,6 +16,10 @@ describe('Repositories - Games - Get', () => {
     awayTeam: 'Palmeiras',
   }
 
+  beforeAll(() => {
+    jest.spyOn(console, 'error').mockImplementation(() => { })
+  })
+
   afterEach(() => {
     jest.clearAllMocks()
   })
