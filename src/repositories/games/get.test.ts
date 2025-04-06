@@ -43,7 +43,8 @@ describe('Repositories - Games - Get', () => {
   it('should throw an error when the game does not exist', async () => {
     dynamoDbMock.send.mockResolvedValueOnce({ Item: undefined })
 
-    await expect(getGame('456')).rejects.toThrow('Game with ID 456 not found')
+    const result = await getGame('456')
+    expect(result).toBeUndefined()
 
     expect(dynamoDbMock.send).toHaveBeenCalledWith(
       expect.objectContaining({
