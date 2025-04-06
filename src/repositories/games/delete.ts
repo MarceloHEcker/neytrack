@@ -4,6 +4,13 @@ import logger from '~/utils/logger'
 
 const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
 
+/**
+ * Deletes a game entry from the DynamoDB table.
+ *
+ * @param gameId - The unique identifier for the game to be deleted.
+ * @returns A promise that resolves when the game is successfully deleted.
+ * @throws Will throw an error if the deletion from DynamoDB fails.
+ */
 const deleteGame = async (gameId: string): Promise<void> => {
   const params = {
     TableName: DYNAMODB_TABLE,

@@ -5,6 +5,17 @@ import logger from '~/utils/logger'
 
 const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
 
+/**
+ * Creates a new game entry in the DynamoDB table.
+ *
+ * @param item - The game object to be inserted into the database.
+ * @param item.id - The unique identifier for the game.
+ * @param item.started - A boolean indicating whether the game has started.
+ * @param item.homeTeam - The name of the home team.
+ * @param item.awayTeam - The name of the away team.
+ * @returns A promise that resolves when the game is successfully inserted.
+ * @throws Will throw an error if the insertion into DynamoDB fails.
+ */
 const createGame = async (item: Game): Promise<void> => {
   const params = {
     TableName: DYNAMODB_TABLE,

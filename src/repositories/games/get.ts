@@ -5,6 +5,13 @@ import { GetCommand } from '@aws-sdk/lib-dynamodb'
 
 const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
 
+/**
+ * Fetches a game entry from the DynamoDB table using the provided game ID.
+ *                          
+ * @param gameId - The unique identifier for the game to be fetched.
+ * @returns A promise that resolves to the game object if found, or null if not found.
+ * @throws Will throw an error if the fetch operation fails.
+ */
 const getGame = async (gameId: string): Promise<Game> => {
   const params = {
     TableName: DYNAMODB_TABLE,

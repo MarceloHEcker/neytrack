@@ -2,6 +2,19 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import getGame from '~/repositories/games/get'
 import logger from '~/utils/logger'
 
+/**
+ * Handles the retrieval of a game resource.
+ *
+ * @param event - The API Gateway proxy event containing the request details.
+ * @returns A promise that resolves to an API Gateway proxy result.
+ *
+ * @remarks
+ * - If the `id` path parameter is missing, a 400 response is returned.
+ * - If the game with the specified `id` is not found, a 404 response is returned.
+ * - If the game is successfully retrieved, a 200 response is returned with the game data.
+ *
+ * @throws This function does not explicitly throw errors but relies on the behavior of `getGame`.
+ */
 const getGameHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
   const { pathParameters } = event

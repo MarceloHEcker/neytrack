@@ -6,6 +6,12 @@ import logger from '~/utils/logger'
 
 const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
 
+/**
+ * Fetches all game entries from the DynamoDB table.
+ * 
+ * @returns A promise that resolves to an array of game objects.
+ * @throws Will throw an error if the fetch operation fails.
+ * */
 const listGames = async (): Promise<Game[]> => {
   const params = {
     TableName: DYNAMODB_TABLE,

@@ -5,7 +5,6 @@ import { Game } from '~/models/game'
 import createGame from '~/repositories/games/create'
 import logger from '~/utils/logger'
 
-// Definindo o esquema de validação com Zod
 const schema = z.object({
   id: z.string().nonempty('The "id" field is required and must be a string'),
   homeTeam: z.string(),
@@ -15,6 +14,18 @@ const schema = z.object({
   }),
 })
 
+/**
+ * Handles the creation of a game resource.
+ *
+ * @param event - The API Gateway proxy event containing the request details.
+ * @returns A promise that resolves to an API Gateway proxy result.
+ *
+ * @remarks
+ * - If the request body is missing or invalid, a 400 response is returned.
+ * - If the game is successfully created, a 201 response is returned with a success message.
+ *
+ * @throws This function does not explicitly throw errors but relies on the behavior of `createGame`.
+ */
 const createGameMain = async (event: APIGatewayProxyEvent) => {
 
   logger.debug({

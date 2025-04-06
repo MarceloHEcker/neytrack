@@ -12,6 +12,19 @@ const schema = z.object({
   }),
 })
 
+/**
+ * Handles the update of a game resource.
+ *
+ * @param event - The API Gateway proxy event containing the request details.
+ * @returns A promise that resolves to an API Gateway proxy result.
+ *
+ * @remarks
+ * - If the `id` path parameter is missing, a 400 response is returned.
+ * - If the request body is missing or invalid, a 400 response is returned.
+ * - If the game is successfully updated, a 201 response is returned with a success message.
+ *
+ * @throws This function does not explicitly throw errors but relies on the behavior of `updateGame`.
+ */
 const updateGameHandler = async (event: APIGatewayProxyEvent) => {
 
   const { pathParameters } = event

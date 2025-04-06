@@ -15,6 +15,18 @@ interface UpdateGameParams {
 
 const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || 'GamesTable'
 
+/**
+ * Updates a game record in the DynamoDB table with the provided data.
+ *
+ * @param {UpdateGameParams} params - The parameters for updating the game.
+ * @param {string} params.gameId - The unique identifier of the game to update.
+ * @param {object} params.updateData - The data to update the game with.
+ * @param {boolean} params.updateData.started - Indicates whether the game has started.
+ * @param {string} params.updateData.homeTeam - The name of the home team.
+ * @param {string} params.updateData.awayTeam - The name of the away team.
+ * @returns {Promise<void>} A promise that resolves when the update is complete.
+ * @throws Will throw an error if the update operation fails.
+ */
 const updateGame = async ({ gameId, updateData }: UpdateGameParams): Promise<void> => {
 
   const params = {
